@@ -7,9 +7,9 @@ dotenv.config({ path: "../config.env" });
 dotenv.config({ path: "/etc/secrets/config.env" });
 
 // use environment variable
-const DB_USER = process.env.MY_DB_USERNAME;
-const DB_PASSWORD = process.env.MY_DB_PASSWORD;
-const DB_NAME = process.env.MY_DB_NAME;
+const DB_USER = "jason";
+const DB_PASSWORD = "1234";
+const DB_NAME = "E-connect";
 
 function UserDB() {
   const UserDB = {};
