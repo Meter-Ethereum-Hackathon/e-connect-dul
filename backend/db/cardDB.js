@@ -75,6 +75,32 @@ function MyMongoDB() {
     }
   };
 
+  myDB.searchCards = async (keyword) => {
+    const client = new MongoClient(url);
+    try {
+      await client.connect();
+      const database = client.db(DB_NAME);
+      const cardsCol = database.collection(collectionsPub);
+
+      const query = {
+        $or: [
+          { firstName: { $regex: keyword, $options: "i" } },
+          { lastName: { $regex: keyword, $options: "i" } },
+          { email: { $regex: keyword, $options: "i" } },
+          { intro: { $regex: keyword, $options: "i" } },
+          { job: { $regex: keyword, $options: "i" } },
+          { location: { $regex: keyword, $options: "i" } },
+          { company: { $regex: keyword, $options: "i" } },
+        ],
+      };
+      const cardUser = await cardsCol.find(query).toArray();
+      const resultLength = await cardsCol.countDocuments(query);
+      return [cardUser, resultLength];
+    } finally {
+      await client.close();
+    }
+  };
+
   myDB.fetchingPublicCards = async () => {
     const client = new MongoClient(url);
     try {

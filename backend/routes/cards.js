@@ -96,4 +96,11 @@ cardrouter.post("/deleteCard", async (req, res) => {
   }
 });
 
+//find
+cardrouter.post("/api/searchCards", async (req, res) => {
+  const keyword = req.query.query;
+  const [getResults, getResultsSize] = await myDB.searchCards(keyword);
+  res.status(200).json({ data: getResults, size: getResultsSize });
+});
+
 export default cardrouter;
