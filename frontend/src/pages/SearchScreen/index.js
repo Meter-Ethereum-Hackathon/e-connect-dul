@@ -34,8 +34,6 @@ const SearchScreen = () => {
   const handeler = (evt) => {
     evt.preventDefault();
     setIsSearched(true);
-    console.log("search content", searchContent);
-    console.log("query", searchParams.get("query"));
     fetch(`/api/searchCards/?query=${searchContent}`, { method: "POST" })
       .then((res) => res.json())
       .then((data) => setSearchCardData(data));
